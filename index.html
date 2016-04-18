@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <title>Dogpack</title>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+
+      <meta name="author" content="Cukyna, inc." />
+      <meta name="description" content="You are playing as Doge who is on the run from research facility. You are being chased by Catchers. On your way to freedom, you goal is to collect fuel for your rocket legs, watch out for catchers.
+Of course our hero, Doge, can not be defenceless so you can also collect shields and use them, to prevent Catchers from destroying your dreams of freedom." />
+      <meta name="keywords" content="filip, lukac, hlozny, peter, cukyna, dogpack, flopyy, bird, floppybird, source, opensource, game, arcade, freegame, free, development, html, css, javascript, js" />
+
+      <!-- Open Graph tags -->
+      <meta property="og:title" content="Dogpack" />
+      <meta property="og:description" content="Give your Doge freedom. You are playing as Doge who is on the run from research facility. You are being chased by Catchers. On your way to freedom, you goal is to collect fuel for your rocket legs, watch out for catchers." />
+      <meta property="og:type" content="website" />
+      <meta property="og:image" content="http://dogpack.eu/assets/SEO.jpg" />
+      <meta property="og:url" content="http://dogpack.eu/" />
+      <meta property="og:site_name" content="Dogpack" />
+
+      <script>
+         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+         ga('create', 'UA-76519948-1', 'auto');
+         ga('send', 'pageview');
+
+      </script>
+
+
+      <!-- Style sheets -->
+      <link href="css/reset.css" rel="stylesheet">
+      <link href="js/jquery-ui-1.9.2.custom.min.css" rel="stylesheet">
+      <link href="css/main.css" rel="stylesheet">
+   </head>
+   <body>
+      <div id="dialog" title="Select your nickname" style="display: none;">
+         <p>Select your nickname. If empty, your score will be saved as anonymous.</p>
+         <br/>
+         <input type="text" id="nickname"  style="width: 100%;"/>
+      </div>
+      <div id="gamecontainer">
+         <div id="gamescreen">
+            <div id="sky" class="animated">
+               <div id="fuel"></div>
+               <div class="shieldbar" style="display: block">
+                  <span style="font-size: 20px;margin-bottom: -10px;">Shields: </span>
+                  <div style="padding-top:5px;" id="shield-handler">
+                     <img src="assets/shield-up.png" class="shield-dog" width="25" />
+                     <img src="assets/shield-up.png" class="shield-dog" width="25" />
+                     <img src="assets/shield-up.png" class="shield-dog" width="25" />
+                  </div>
+               </div>
+               <div class="options">
+                  <img src="assets/sound-on.png" class="sound-option" attr="on" id="sound-on"/>
+                  <img src="assets/sound-off.png" style="display: none;" class="sound-option" attr="off" id="sound-off"/>
+               </div>
+               <div id="flyarea">
+                  <!-- This is the flying and pipe area container -->
+                  <div id="player" class="dog animated"></div>
+                  <div id="bigscore"></div>
+                  <div id="splash"></div>
+                  
+                  <div id="scoreboard">
+                     <div id="medal"></div>
+                     <div id="currentscore"></div>
+                     <div id="highscore"></div>
+                     <div id="replay"><img src="assets/replay.png" alt="replay"></div>
+                  </div>
+               </div>
+            </div>
+            <div id="land" class="animated"><div id="debug"></div></div>
+         </div>
+      </div>
+      <div class="boundingbox" id="playerbox"></div>
+      <div class="shield" id="playershield"></div>
+
+      <script src="js/jquery.min.js"></script>
+      <script src="js/jquery-ui-1.9.2.custom.min.js"></script>
+      <script src="js/jquery.transit.min.js"></script>
+      <script src="js/buzz.min.js"></script>
+      <script src="js/main.js"></script>
+   </body>
+</html>
