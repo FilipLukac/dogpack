@@ -36,6 +36,14 @@ Of course our hero, Doge, can not be defenceless so you can also collect shields
       <link href="css/main.css" rel="stylesheet">
    </head>
    <body>
+   <div id="fb-root"></div>
+   <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=280869962113136";
+      fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));</script>
       <div id="dialog" title="Select your nickname" style="display: none;">
          <p>Select your nickname. If empty, your score will be saved as anonymous.</p>
          <br/>
@@ -73,6 +81,12 @@ Of course our hero, Doge, can not be defenceless so you can also collect shields
             </div>
             <div id="land" class="animated"><div id="debug"></div></div>
          </div>
+      </div>
+
+      <div class="'media" style="bottom: 7%; left: 2%;position:absolute;">
+         <div style="bottom: 2px;" class="fb-share-button" data-href="http://dogpack.eu" data-layout="button" data-mobile-iframe="true"></div>
+         <a style="margin-top:5px;" href="https://twitter.com/share" class="twitter-share-button" data-url="http://dogpack.eu" data-text="Check out this #mindblowing game! http://dogpack.eu #dogpack" data-via="FilipLuk">Tweet</a>
+         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
       </div>
       <div class="boundingbox" id="playerbox"></div>
       <div class="shield" id="playershield"></div>

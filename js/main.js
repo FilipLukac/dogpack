@@ -2,6 +2,7 @@ var debugmode = false;
 var sounds = false;
 var dialogOpened = true;
 
+
 var states = Object.freeze({
    SplashScreen: 0,
    GameScreen: 1,
@@ -27,6 +28,7 @@ var scoreTime = 0;
 var replayclickable = false;
 var shieldActivated = false;
 var turboActivated = false;
+var hardcore = false;
 
 
 //sounds
@@ -57,6 +59,10 @@ var loopShields;
 $(document).ready(function() {
    if(window.location.search == "?debug")
       debugmode = true;
+
+   if (window.location.search == "?hardcore") {
+      var hardcore = true;
+   }
    
    //get the highscore
    var savedscore = getCookie("highscore");
@@ -298,7 +304,6 @@ $(document).ready(function() {
             if (typeof pipe[0] !== 'undefined') {
                var pipebox = pipe[0].getBoundingClientRect();
                if (intersect(box, pipebox)) {
-                  var pipeId = pipe.attr('pipe-id');
                   pipe.remove();
                   playerScore();
                   fuelUp();
@@ -348,45 +353,67 @@ $(document).ready(function() {
 
    function activateShield()
    {
-      var shields = $('.shield-dog');
+      if (currentstate == states.GameScreen) {
+         var shields = $('.shield-dog');
 
-      if (typeof shields !== "undefined" && shields.length && shields.length > 0) {
-         shields[shields.length-1].remove();
+         if (typeof shields !== "undefined" && shields.length && shields.length > 0) {
+            shields[shields.length-1].remove();
 
-         var box = document.getElementById('player').getBoundingClientRect();
-         var origwidth = 110.0;
-         var origheight = 81.0;
+            var box = document.getElementById('player').getBoundingClientRect();
+            var origwidth = 110.0;
+            var origheight = 81.0;
 
-         var boxwidth = origwidth - (Math.sin(Math.abs(rotation) / 90) * 8);
-         var boxheight = (origheight + box.height) / 2;
-         var boxleft = ((box.width - boxwidth) / 2) + box.left;
-         var boxtop = ((box.height - boxheight) / 2) + box.top;
+            var boxwidth = origwidth - (Math.sin(Math.abs(rotation) / 90) * 8);
+            var boxheight = (origheight + box.height) / 2;
+            var boxleft = ((box.width - boxwidth) / 2) + box.left;
+            var boxtop = ((box.height - boxheight) / 2) + box.top;
 
 
-         var boundingbox = $("#playershield");
-         boundingbox.show();
-         boundingbox.css('left', boxleft-4);
-         boundingbox.css('top', boxtop+4);
-         boundingbox.css('height', boxheight+4);
-         boundingbox.css('width', boxwidth+4);
-         shieldActivated = true;
+            var boundingbox = $("#playershield");
+            boundingbox.show();
+            boundingbox.css('left', boxleft-4);
+            boundingbox.css('top', boxtop+4);
+            boundingbox.css('height', boxheight+4);
+            boundingbox.css('width', boxwidth+4);
+            shieldActivated = true;
 
-         setTimeout(function () {
-            boundingbox.hide();
-            shieldActivated = false;
-         }, 5000)
+            setTimeout(function () {
+               boundingbox.hide();
+               shieldActivated = false;
+            }, 5000)
+         }
       }
    }
 
 
    function fuelUp()
    {
-      var widthToAdd = fuel.width() + overalWidth * 0.1;
+      if (!hardcore) {
+         var widthToAdd = fuel.width() + overalWidth * 0.1;
 
-      if (widthToAdd >= overalWidth) {
-         fuel.width(overalWidth);
+         if (widthToAdd >= overalWidth) {
+            fuel.width(overalWidth);
+         } else {
+            fuel.width(widthToAdd);
+         }
       } else {
-         fuel.width(widthToAdd);
+         if (score > 50) {
+            var widthToAdd = fuel.width() - overalWidth * 0.1;
+
+            if (widthToAdd >= overalWidth) {
+               fuel.width(overalWidth);
+            } else {
+               fuel.width(widthToAdd);
+            }
+         } else {
+            var widthToAdd = fuel.width() + overalWidth * 0.1;
+
+            if (widthToAdd >= overalWidth) {
+               fuel.width(overalWidth);
+            } else {
+               fuel.width(widthToAdd);
+            }
+         }
       }
    }
 
@@ -398,7 +425,6 @@ $(document).ready(function() {
       r2.bottom < r1.top);
    }
 
-//Handle space bar
    $(document).keydown(function(e){
 
       if (!dialogOpened) {
@@ -709,19 +735,38 @@ $(document).ready(function() {
 
    function updateFuel()
    {
-      fuel.width(fuel.width() - fuelToDown);
+      if (!hardcore) {
+         fuel.width(fuel.width() - fuelToDown);
 
-      if (fuel.width() >= halfHeight) {
-         fuel.css('background-color', '#18f669');
+         if (fuel.width() >= halfHeight) {
+            fuel.css('background-color', '#18f669');
+         }
+
+         if (fuel.width() <= halfHeight) {
+            fuel.css('background-color', '#f6f64d');
+         }
+
+         if (fuel.width() <= minimumHeight) {
+            fuel.css('background-color', 'red');
+         }
+      } else {
+         if (score < 50) {
+            fuel.width(fuel.width() - fuelToDown);
+
+            if (fuel.width() >= halfHeight) {
+               fuel.css('background-color', '#18f669');
+            }
+
+            if (fuel.width() <= halfHeight) {
+               fuel.css('background-color', '#f6f64d');
+            }
+
+            if (fuel.width() <= minimumHeight) {
+               fuel.css('background-color', 'red');
+            }
+         }
       }
 
-      if (fuel.width() <= halfHeight) {
-         fuel.css('background-color', '#f6f64d');
-      }
-
-      if (fuel.width() <= minimumHeight) {
-         fuel.css('background-color', 'red');
-      }
    }
 
 
